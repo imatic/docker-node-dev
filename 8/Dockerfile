@@ -14,4 +14,10 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" > /etc/
     mv /usr/lib/firefox-esr/firefox-esr /usr/lib/firefox-esr/firefox-esr_orig && \
     ln -s /opt/firefox/firefox/firefox /usr/lib/firefox-esr/firefox-esr && \
 
+    # docker-tools
+    curl --output docker-tools-latest.deb --location 'https://github.com/imatic/docker-tools/releases/download/1.1.2-1/docker-tools-1.1.2-1.deb' && \
+    dpkg --install --ignore-depends docker-ce ./docker-tools-latest.deb || apt-get --fix-broken install --yes && dpkg --install --ignore-depends docker-ce ./docker-tools-latest.deb && \
+    rm -rf ./docker-tools-latest.deb && \
+
+
     rm -rf /var/lib/apt/lists/*
