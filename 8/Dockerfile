@@ -20,7 +20,7 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" > /etc/
     dpkg -i docker-ce_1.0_all.deb && \
     rm -rf ./docker-ce* && \
     curl --output docker-tools-latest.deb --location 'https://github.com/imatic/docker-tools/releases/download/1.1.2-1/docker-tools-1.1.2-1.deb' && \
-    dpkg --install ./docker-tools-latest.deb && \
+    dpkg --install ./docker-tools-latest.deb || apt-get --fix-broken install --yes && dpkg --install ./docker-tools-latest.deb && \
     rm -rf ./docker-tools-latest.deb && \
     # cleanup
     rm -rf /var/lib/apt/lists/*
