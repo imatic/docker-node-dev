@@ -5,6 +5,10 @@ RUN echo 'deb http://deb.debian.org/debian stretch-backports main' >> /etc/apt/s
     apt-get -t stretch-backports install --yes openjdk-11-jdk && \
     apt-get install --yes jq equivs iceweasel xvfb postgresql-client-9.6 gnustep-make cgroup-tools awesome wmctrl ffmpeg pulseaudio && \
     sed -i 's/module-native-protocol-unix/\0 auth-anonymous=true/' /etc/pulse/system.pa && \
+    # Install newer ca (https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=894979)
+    curl --output ca-cert.deb --location 'http://ftp.cz.debian.org/debian/pool/main/c/ca-certificates-java/ca-certificates-java_20190405_all.deb' && \
+    dpkg --install ./ca-cert.deb && \
+    rm -rf ./ca-cert.deb && \
     # Update Firefox
     wget -O /opt/FirefoxSetup.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US" && \
     mkdir /opt/firefox && \
